@@ -66,16 +66,19 @@ const fs = require('fs');
 
 
     const header = `${'Datum'.padEnd(20)}${'Fälle'.padEnd(15)}${'Genesen'.padEnd(15)}${'Verstorben'.padEnd(15)}${'Aktuell infiziert'.padEnd(15)}`
-
-    console.log(header)
+    let lines = []
+    lines = [...lines, header]
     Object.values(objects).forEach(value => {
         const datum = `${value.dateString}`.padEnd(20)
         if (value.date.getDay() === 1) {
-            console.log('                     ---------- Neue Woche ----------')
-            console.log(header)
+            lines = [...lines, '                     ---------- Neue Woche ----------']
+            lines = [...lines, header]
         }
-        console.log(`${datum}${value.confirmed}${value.recovered}${value.deaths}${value.infected}`)
+        const line = `${datum}${value.confirmed}${value.recovered}${value.deaths}${value.infected}`;
+        lines = [...lines, line]
     })
+
+    fs.writeFileSync('output.txt', lines.join('\n'))
 
 })();
 
