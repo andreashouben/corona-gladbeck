@@ -27,9 +27,9 @@ const fs = require('fs');
 
 
 
-    const labels = data.labels.reverse()
+    const labels = data.labels
 
-    const mapToPrevDay = (data) => data.reverse().map(
+    const mapToPrevDay = (data) => data.map(
         (val, idx, arr) => idx === 0 ?
             [val, 0] :
             [val, val - arr[idx - 1]])
@@ -71,12 +71,12 @@ const fs = require('fs');
     Object.values(objects).forEach(value => {
         const datum = `${value.dateString}`.padEnd(20)
         const line = `${datum}${value.confirmed}${value.recovered}${value.deaths}${value.infected}`;
-        lines = [...lines, line]
 
         if (value.date.getDay() === 1) {
             lines = [...lines, '                     ---------- Neue Woche ----------']
             lines = [...lines, header]
         }
+        lines = [...lines, line]
 
     })
 
