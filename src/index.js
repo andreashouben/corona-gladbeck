@@ -27,7 +27,7 @@ const fs = require('fs');
 
 
 
-    const labels = data.labels
+    const labels = data.labels.reverse()
 
     const mapToPrevDay = (data) => data.map(
         (val, idx, arr) => idx === 0 ?
@@ -70,12 +70,14 @@ const fs = require('fs');
     lines = [...lines, header]
     Object.values(objects).forEach(value => {
         const datum = `${value.dateString}`.padEnd(20)
+        const line = `${datum}${value.confirmed}${value.recovered}${value.deaths}${value.infected}`;
+        lines = [...lines, line]
+
         if (value.date.getDay() === 1) {
             lines = [...lines, '                     ---------- Neue Woche ----------']
             lines = [...lines, header]
         }
-        const line = `${datum}${value.confirmed}${value.recovered}${value.deaths}${value.infected}`;
-        lines = [...lines, line]
+
     })
 
     fs.writeFileSync('output.txt', lines.join('\n'))
