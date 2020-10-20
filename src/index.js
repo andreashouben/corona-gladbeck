@@ -29,7 +29,7 @@ const fs = require('fs');
 
     const labels = data.labels.reverse()
 
-    const mapToPrevDay = (data) => data.map(
+    const mapToPrevDay = (data) => data.reverse().map(
         (val, idx, arr) => idx === 0 ?
             [val, 0] :
             [val, val - arr[idx - 1]])
