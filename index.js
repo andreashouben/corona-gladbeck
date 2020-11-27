@@ -23,7 +23,7 @@ const fs = require('fs');
     ` + script + 'module.exports = data;'
     fs.writeFileSync('./src/script.js', script)
 
-    const data = require('./script.js')
+    const data = require('./src/script.js')
 
 
 
